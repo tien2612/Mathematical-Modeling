@@ -10,14 +10,24 @@ from random import uniform
 from matplotlib.lines import Line2D
 
 # defind system of equations for plot nullcline
-a = 1
-b = 6
-c = 1
-d = -4
+# example 1
+# a = 1
+# b = 6
+# c = 1
+# d = -4
+# R_1 = np.linspace(-10, 10, 100)
+# R_2 = np.linspace(-10, 10, 100)
+# J_1 = -R_1/6
+# J_2 = R_2/4
+# example 2
+a = 2
+b = 2
+c = 2
+d = -2
 R_1 = np.linspace(-10, 10, 100)
 R_2 = np.linspace(-10, 10, 100)
-J_1 = -R_1/6
-J_2 = R_2/4
+J_1 = -R_1
+J_2 = R_2
 # return dR/dt and dJ/dt
 def f(Y, t):
     R, J = Y
@@ -26,15 +36,15 @@ def f(Y, t):
 # function that returns dz/dt
 def model(z, t):
     #example 1
-    c1 = 1/5
-    c2 = 3/5
-
+    # c1 = 1/5
+    # c2 = 3/5
+    # R = 6 * c1 * pow(np.e, 2*t) + 3 * c2 * pow(math.e, -3 * t)
+    # J = c1 * pow(np.e, 2*t) - 2 * c2 * pow(math.e, -3 * t)
     #example 2
-    # c1 = -7/5
-    # c2 = 9/5
-
-    R = 6 * c1 * pow(np.e, 2*t) + 3 * c2 * pow(math.e, -3 * t)
-    J = c1 * pow(np.e, 2*t) - 2 * c2 * pow(math.e, -3 * t)
+    c1 = -(4+7*math.sqrt(2)) / 8
+    c2 = (4-7*math.sqrt(2)) / 8
+    R = 2*c1*pow(np.e, 2*math.sqrt(2)*t) - 2 * c2 * pow(math.e, -2*math.sqrt(2) * t)
+    J = (-2+2*math.sqrt(2)) * c1 * pow(np.e, 2*math.sqrt(2)*t) + (2+2*math.sqrt(2)) * c2 * pow(math.e, -2*math.sqrt(2) * t)
 
     Rdot = a * R + b * J
     Jdot = c * R + d * J
@@ -43,9 +53,10 @@ def model(z, t):
     return dzdt
 
 # initial condition
-# example
-z0 = [3, -1]
-#z0 = [-3, -5]
+# example 1
+#z0 = [3, -1]
+#example 2
+z0 = [-5, -2]
 
 # time points
 t = np.linspace(0, 10, 100)
