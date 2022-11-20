@@ -12,26 +12,26 @@ from matplotlib.lines import Line2D
 # defind system of equations for plot nullcline
 # example 1
 # initital condition
-# z0 = [2, 1]
-# a = 3
-# b = 3
-# c = -2
-# d = -4
+# z0 = [2, -5]
+# a =2
+# b = -1
+# c = 1
+# d = -2
 # R_1 = np.linspace(-10, 10, 100)
 # R_2 = np.linspace(-10, 10, 100)
-# J_1 = -R_1
-# J_2 = -R_2/2
+# J_1 = 2*R_1
+# J_2 = R_2/2
 # example 2
 # initial condition
-z0 = [-5, 2]
+z0 = [5, 3]
 a = 2
-b = 5
-c = -4
-d = -2
+b = -5
+c = 2
+d = -4
 R_1 = np.linspace(-10, 10, 100)
 R_2 = np.linspace(-10, 10, 100)
 J_1 = -2*R_1/5
-J_2 = -2*R_2
+J_2 = -R_2
 
 # return dR/dt and dJ/dt
 def f(Y, t):
@@ -41,14 +41,14 @@ def f(Y, t):
 # function that returns dz/dt
 def model(z, t):
     #example 1
-    # c1 = -1
-    # c2 = 1
-    # R = -3*c1*pow(np.e, 2*t) - c2*pow(np.e, -3*t)
-    # J = c1*pow(np.e, 2*t) + 2*c2*pow(np.e, -3*t)
+    # c1 = (2+3*math.sqrt(3))/2
+    # c2 = (2-3*math.sqrt(3))/2
+    # R = c1*pow(np.e, math.sqrt(3)*t) + c2*pow(np.e, -math.sqrt(3)*t)
+    # J = (2-math.sqrt(3))*c1*pow(np.e, math.sqrt(3)*t) + (2+math.sqrt(3))*c2*pow(np.e, -math.sqrt(3)*t)
 
     #example 2
-    R = -5*np.cos(4*t)
-    J = 2*np.cos(4*t) + 4*np.sin(4*t)
+    R = pow(math.e, -t) * 5*np.cos(t)
+    J = pow(math.e, -t) * ( 3*np.cos(t) + np.sin(t) )
 
     Rdot = a * R + b * J
     Jdot = c * R + d * J
@@ -56,14 +56,13 @@ def model(z, t):
     return dzdt
 
 # time points
-t = np.linspace(0, 10, 500)
-#
+t = np.linspace(0, 6, 500)
 # solve ODE
 z = odeint(model, z0, t)
 # create plot
 plt.plot(t, z[:,0],'c-',label=r"Romeo's")
 plt.plot(t, z[:,1], color = 'orange', label=r"Juliet's")
-plt.title("LOVE BETWEEN AN EAGER BEAVER AND A HERMIT", fontsize = 12)
+plt.title("LOVE BETWEEN AN NARCISSISTIC NERD AND A CAUTIOUS LOVER", fontsize=10)
 plt.ylabel('Love for the other')
 plt.legend(loc='best')
 plt.grid()
@@ -95,7 +94,7 @@ q = ax.quiver(RR, JJ, u/r, v/r, M, units='x', pivot='tip', width=0.07)
 ax.set(xlim=(-4.7, 4.7), ylim=(-4.7, 4.7))
 ax.set_aspect(aspect=1)
 
-ax.set_title("LOVE BETWEEN AN EAGER BEAVER AND A HERMIT", fontsize = 10)
+ax.set_title("LOVE BETWEEN AN NARCISSISTIC NERD AND A CAUTIOUS LOVER", fontsize = 10)
 ax.set_ylabel("Juliet's love for Romeo", fontsize=12)
 ax.set_xlabel("Romeo's love for Juliet", fontsize=12)
 plt.xticks([-4, -3, -2, -1, 0, 1, 2, 3, 4]) # set ticks
