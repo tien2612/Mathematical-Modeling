@@ -12,26 +12,26 @@ from matplotlib.lines import Line2D
 # defind system of equations for plot nullcline
 # example 1
 # initital condition
-z0 = [0, math.sqrt(2)]
-a = 1
-b = -1
+# z0 = [2, -4]
+# a = -2
+# b = 4
+# c = -1
+# d = -2
+# R_1 = np.linspace(-10, 10, 100)
+# R_2 = np.linspace(-10, 10, 100)
+# J_1 = R_1/2
+# J_2 = -R_2/2
+# example 2
+# initial condition
+z0 = [-3, -8]
+a = -1
+b = 1
 c = -1
 d = -1
 R_1 = np.linspace(-10, 10, 100)
 R_2 = np.linspace(-10, 10, 100)
 J_1 = R_1
 J_2 = -R_2
-# example 2
-# initial condition
-# z0 = [5, 3]
-# a = 2
-# b = -5
-# c = 2
-# d = -4
-# R_1 = np.linspace(-10, 10, 100)
-# R_2 = np.linspace(-10, 10, 100)
-# J_1 = -2*R_1/5
-# J_2 = -R_2
 
 # return dR/dt and dJ/dt
 def f(Y, t):
@@ -40,13 +40,13 @@ def f(Y, t):
 
 # function that returns dz/dt
 def model(z, t):
-    #example 1
-    R = 1/2*pow(np.e, math.sqrt(2)*t) - 1/2*pow(np.e, -math.sqrt(2)*t)
-    J = (1-math.sqrt(2))/2 *pow(np.e, math.sqrt(2)*t) \
-        - (1+math.sqrt(2))/2*pow(np.e, -math.sqrt(2)*t)
-    #example 2
-    # R = pow(math.e, -t) * 5*np.cos(t)
-    # J = pow(math.e, -t) * ( 3*np.cos(t) + np.sin(t) )
+    # example 1
+    # R = pow(np.e, -2*t) * ( 2*np.cos(2*t)  - 8*np.sin(2*t) )
+    # J = pow(np.e, -2*t) * ( -4*np.cos(2*t) - np.sin(2*t) )
+
+    # example 2
+    R = pow(np.e, -t) * ( -3*np.cos(t) - 8*np.sin(t) )
+    J = pow(np.e, -t) * ( -8*np.cos(t) + 3*np.sin(t) )
 
     Rdot = a * R + b * J
     Jdot = c * R + d * J
@@ -60,7 +60,7 @@ z = odeint(model, z0, t)
 # create plot
 plt.plot(t, z[:,0],'c-',label=r"Romeo's")
 plt.plot(t, z[:,1], color = 'orange', label=r"Juliet's")
-plt.title("LOVE BETWEEN A NARCISSISTIC NERD AND A HERMIT", fontsize=10)
+plt.title("LOVE BETWEEN A CAUTIOUS LOVER AND A HERMIT", fontsize=10)
 plt.ylabel('Love for the other')
 plt.legend(loc='best')
 plt.grid()
@@ -92,7 +92,7 @@ q = ax.quiver(RR, JJ, u/r, v/r, M, units='x', pivot='tip', width=0.07)
 ax.set(xlim=(-4.7, 4.7), ylim=(-4.7, 4.7))
 ax.set_aspect(aspect=1)
 
-ax.set_title("LOVE BETWEEN A NARCISSISTIC NERD AND A HERMIT", fontsize = 10)
+ax.set_title("LOVE BETWEEN A CAUTIOUS LOVER AND A HERMIT", fontsize = 10)
 ax.set_ylabel("Juliet's love for Romeo", fontsize=12)
 ax.set_xlabel("Romeo's love for Juliet", fontsize=12)
 plt.xticks([-4, -3, -2, -1, 0, 1, 2, 3, 4]) # set ticks
