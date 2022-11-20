@@ -12,15 +12,15 @@ from matplotlib.lines import Line2D
 # defind system of equations for plot nullcline
 # example 1
 # initital condition
-z0 = [3, 3]
-a = 2
-b = -1
-c = -3
-d = 4
+z0 = [0, -4]
+a = -1
+b = 2
+c = 2
+d = -1
 R_1 = np.linspace(-10, 10, 100)
 R_2 = np.linspace(-10, 10, 100)
 J_1 = R_1/2
-J_2 = 3*R_2/4
+J_2 = 2*R_2
 # example 2
 # initial condition
 # z0 = [-3, -8]
@@ -41,12 +41,12 @@ def f(Y, t):
 # function that returns dz/dt
 def model(z, t):
     # example 1
-    # R = 7/4*pow(np.e, t) + 5/4*pow(np.e, 5*t)
-    # J = 7/4*pow(np.e, t) - 15/4*pow(np.e, 5*t)
+    # R = pow(np.e, t) - 3*pow(np.e, -4*t)
+    # J = pow(np.e, t) + 2*pow(np.e, -4*t)
 
     # example 2
-    R = 3*pow(np.e, t)
-    J = 3*pow(np.e, t)
+    R = -2*pow(np.e, t) + 2*pow(np.e, -3*t)
+    J = -2*pow(np.e, t) - 2*pow(np.e, -3*t)
 
     Rdot = a * R + b * J
     Jdot = c * R + d * J
@@ -54,13 +54,13 @@ def model(z, t):
     return dzdt
 
 # time points
-t = np.linspace(0, 10, 500)
+t = np.linspace(0, 2, 500)
 # solve ODE
 z = odeint(model, z0, t)
 # create plot
 plt.plot(t, z[:,0],'c-',label=r"Romeo's")
 plt.plot(t, z[:,1], color = 'orange', label=r"Juliet's")
-plt.title("LOVE BETWEEN TWO NARCISSISTIC NERD", fontsize=12)
+plt.title("LOVE BETWEEN TWO CAUTIOUS LOVER", fontsize=12)
 plt.ylabel('Love for the other')
 plt.legend(loc='best')
 plt.grid()
@@ -92,7 +92,7 @@ q = ax.quiver(RR, JJ, u/r, v/r, M, units='x', pivot='tip', width=0.07)
 ax.set(xlim=(-4.7, 4.7), ylim=(-4.7, 4.7))
 ax.set_aspect(aspect=1)
 
-ax.set_title("LOVE BETWEEN TWO NARCISSISTIC NERD", fontsize = 10)
+ax.set_title("LOVE BETWEEN TWO CAUTIOUS LOVER", fontsize = 12)
 ax.set_ylabel("Juliet's love for Romeo", fontsize=12)
 ax.set_xlabel("Romeo's love for Juliet", fontsize=12)
 plt.xticks([-4, -3, -2, -1, 0, 1, 2, 3, 4]) # set ticks
