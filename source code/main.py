@@ -12,26 +12,26 @@ from matplotlib.lines import Line2D
 # defind system of equations for plot nullcline
 # example 1
 # initital condition
-# z0 = [-1, 3]
-# a = 2
-# b = 2
-# c = -1
-# d = 4
+# z0 = [2, 1]
+# a = 3
+# b = 3
+# c = -2
+# d = -4
 # R_1 = np.linspace(-10, 10, 100)
 # R_2 = np.linspace(-10, 10, 100)
 # J_1 = -R_1
-# J_2 = R_2/4
+# J_2 = -R_2/2
 # example 2
 # initial condition
-z0 = [2, -2]
-a = 5
-b = 3
+z0 = [-5, 2]
+a = 2
+b = 5
 c = -4
-d = 3
+d = -2
 R_1 = np.linspace(-10, 10, 100)
 R_2 = np.linspace(-10, 10, 100)
-J_1 = -5*R_1/3
-J_2 = 4*R_2/3
+J_1 = -2*R_1/5
+J_2 = -2*R_2
 
 # return dR/dt and dJ/dt
 def f(Y, t):
@@ -41,17 +41,14 @@ def f(Y, t):
 # function that returns dz/dt
 def model(z, t):
     #example 1
-    # c1 = -1/2
-    # c2 = 7/2
-    # R = pow(np.e, 3*t) * (c1 * 2 * np.cos(t) + c2 * 2 * np.sin(t))
-    # J = pow(np.e, 3*t) * (c1 * (np.cos(t) - np.sin(t) )+ c2 * ( np.sin(t) + np.cos(t)) )
+    # c1 = -1
+    # c2 = 1
+    # R = -3*c1*pow(np.e, 2*t) - c2*pow(np.e, -3*t)
+    # J = c1*pow(np.e, 2*t) + 2*c2*pow(np.e, -3*t)
 
     #example 2
-    c1 = -2/3
-    c2 = 4*math.sqrt(11)/3
-    R = pow(np.e, 4*t) * (3*c1*np.cos(math.sqrt(11)*t) + 3*c2*np.sin(math.sqrt(11)*t))
-    J = pow(np.e, 4*t) * (c1*(-np.cos(math.sqrt(11)*t) - math.sqrt(11)*np.sin(math.sqrt(11)*t))
-                          + c2*(-np.sin(math.sqrt(11)*t) + math.sqrt(11)*np.cos(math.sqrt(11)*t)) )
+    R = -5*np.cos(4*t)
+    J = 2*np.cos(4*t) + 4*np.sin(4*t)
 
     Rdot = a * R + b * J
     Jdot = c * R + d * J
@@ -59,28 +56,26 @@ def model(z, t):
     return dzdt
 
 # time points
-t = np.linspace(0, 2, 500)
+t = np.linspace(0, 10, 500)
 #
 # solve ODE
-z0 = [-2, 2]
 z = odeint(model, z0, t)
 # create plot
 plt.plot(t, z[:,0],'c-',label=r"Romeo's")
 plt.plot(t, z[:,1], color = 'orange', label=r"Juliet's")
-plt.title("LOVE BETWEEN A EAGER BEAGER AND A CAUTIONS LOVER", fontsize = 12)
+plt.title("LOVE BETWEEN AN EAGER BEAVER AND A HERMIT", fontsize = 12)
 plt.ylabel('Love for the other')
 plt.legend(loc='best')
 plt.grid()
 
 # phase portrait
 # mesh grid for each point R, J then store into u, v
-R = np.linspace(-5.0, 5.0, 10)
-J = np.linspace(-5.0, 5.0, 10)
+R = np.linspace(-4.7, 4.7, 10)
+J = np.linspace(-4.7, 4.7, 10)
 RR, JJ = np.meshgrid(R, J)
 u, v = np.zeros(RR.shape), np.zeros(JJ.shape)
 # plot vector field
 NI, NJ = RR.shape
-t = 0
 for i in range(NI):
     for j in range(NJ):
         x = RR[i, j]
@@ -100,7 +95,7 @@ q = ax.quiver(RR, JJ, u/r, v/r, M, units='x', pivot='tip', width=0.07)
 ax.set(xlim=(-4.7, 4.7), ylim=(-4.7, 4.7))
 ax.set_aspect(aspect=1)
 
-ax.set_title("LOVE BETWEEN A EAGER BEAGER AND A NARCISSISTIC NERD", fontsize = 10)
+ax.set_title("LOVE BETWEEN AN EAGER BEAVER AND A HERMIT", fontsize = 10)
 ax.set_ylabel("Juliet's love for Romeo", fontsize=12)
 ax.set_xlabel("Romeo's love for Juliet", fontsize=12)
 plt.xticks([-4, -3, -2, -1, 0, 1, 2, 3, 4]) # set ticks
@@ -126,7 +121,7 @@ nullcline2 = ax.plot(R_2, J_2, '--', dashes=(3, 1), linewidth= 0.9 ,c = 'magenta
 # Create fixed point
 fixed_point = plt.plot(0, 0, 'go', label = 'Fixed point')
 plt.setp(fixed_point, markersize=8)
-plt.setp(fixed_point, markerfacecolor='white', color = 'gray')
+plt.setp(fixed_point, markerfacecolor='white', color='gray')
 # Show legend
 # Add arrow chacracter to legend for vector field
 arrow = u'$\u279E$'
